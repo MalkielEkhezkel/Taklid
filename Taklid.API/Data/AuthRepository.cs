@@ -49,7 +49,7 @@ namespace Taklid.API.Data
         {
             byte[] passwordHash, passwordSalt;
 
-            CreatePasswprdHash(password, out passwordHash , out passwordSalt);
+            CreatePasswordHash(password, out passwordHash , out passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
@@ -60,7 +60,7 @@ namespace Taklid.API.Data
             return user;
         }
 
-        private void CreatePasswprdHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {

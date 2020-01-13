@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ using Taklid.API.Models;
 
 namespace Taklid.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController] //it checks and validates a lot of things
     public class AuthController : ControllerBase
@@ -69,7 +71,7 @@ namespace Taklid.API.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(1), //expire days time
                 SigningCredentials = creds
             };
 
@@ -77,7 +79,8 @@ namespace Taklid.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new { token = tokenHandler.WriteToken(token)});
+// return as a variable
+            return Ok(new { token = tokenHandler.WriteToken(token)}); 
         }
     }
 }
