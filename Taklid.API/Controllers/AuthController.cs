@@ -33,7 +33,6 @@ namespace Taklid.API.Controllers
             {
                 //validate request
                 userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
-
             }
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
@@ -51,18 +50,16 @@ namespace Taklid.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            throw new Exception("Taklid seys ERROR");
-            
-            var unserFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
 
-            if (unserFromRepo == null)
+            if (userFromRepo == null)
             {
                 return Unauthorized();
             }
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, unserFromRepo.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userForLoginDto.UserName)
             };
 
