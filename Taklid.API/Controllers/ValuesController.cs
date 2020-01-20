@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Taklid.API.Data;
 
-namespace DatingApp.API.Controllers
+namespace Taklid.API.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -21,6 +21,7 @@ namespace DatingApp.API.Controllers
 
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {

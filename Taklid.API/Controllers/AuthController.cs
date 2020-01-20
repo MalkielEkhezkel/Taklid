@@ -13,7 +13,7 @@ using Taklid.API.Models;
 
 namespace Taklid.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController] //it checks and validates a lot of things
     public class AuthController : ControllerBase
@@ -51,6 +51,8 @@ namespace Taklid.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+            throw new Exception("Taklid seys ERROR");
+            
             var unserFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
 
             if (unserFromRepo == null)
